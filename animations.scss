@@ -1,0 +1,56 @@
+/*=============================================>>>>>
+= Animations =
+===============================================>>>>>*/
+
+// ▌║█║▌│║▌│║▌║▌█║ F A D E   I N  (on visible)  ▌│║▌║▌│║║▌█║▌║█
+
+@mixin visible-styles ($is_visible: false) {
+  @if $is_visible {
+    position: relative;
+    bottom: 0;
+    opacity: 1;
+  } @else {
+    position: relative;
+    opacity: 0;
+    bottom: -25px;
+    transition: bottom 0.6s ease, opacity 0.8s ease;
+  }
+}
+
+// ▌║█║▌│║▌│║▌║▌█║ W O B B L E (x axis)  ▌│║▌║▌│║║▌█║▌║█
+
+@mixin wobble() {
+  transition-property: -moz-transform;
+  animation-name: wobbleRightAndLeft;
+  animation-duration: 0.9s;
+  animation-timing-function: ease;
+}
+
+@keyframes wobbleRightAndLeft {
+  0% {
+      transform: rotate(0deg);
+  }
+  25% {
+      transform: rotate(10deg);
+  }
+  50% {
+      transform: rotate(-10deg);
+  }
+  75% {
+      transform: rotate(10deg);
+  }
+  100% {
+      transform: rotate(0deg);;
+  }
+}
+
+// ▌║█║▌│║▌│║▌║▌█║ J U M P  ▌│║▌║▌│║║▌█║▌║█
+
+@mixin jumpOnHover ($position: relative) {
+  position: $position;
+  top: 0;
+  transition: top 0.3s ease;
+  &:hover {
+    top: -5px;
+  }
+}
