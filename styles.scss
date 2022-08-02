@@ -1,0 +1,231 @@
+/*=============================================>>>>>
+= Animations =
+===============================================>>>>>*/
+// on visible fade up
+@mixin visible-styles ($is_visible: false) {
+  @if $is_visible {
+    position: relative;
+    bottom: 0;
+    opacity: 1;
+  } @else {
+    position: relative;
+    opacity: 0;
+    bottom: -25px;
+    transition: bottom 0.6s ease, opacity 0.8s ease;
+  }
+}
+
+@keyframes wobbleRightAndLeft {
+  0% {
+      transform: rotate(0deg);
+  }
+  25% {
+      transform: rotate(10deg);
+  }
+  50% {
+      transform: rotate(-10deg);
+  }
+  75% {
+      transform: rotate(10deg);
+  }
+  100% {
+      transform: rotate(0deg);;
+  }
+}
+
+// left right wobble
+@mixin wobble() {
+  transition-property: -moz-transform;
+  animation-name: wobbleRightAndLeft;
+  animation-duration: 0.9s;
+  animation-timing-function: ease;
+}
+
+// jump on hover
+@mixin jumpOnHover ($position: relative) {
+  position: $position;
+  top: 0;
+  transition: top 0.3s ease;
+  &:hover {
+    top: -5px;
+  }
+}
+/*=============================================>>>>>
+= text =
+===============================================>>>>>*/
+
+@mixin ellipsis($width: 100%) {
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// line-clamp ellipses
+@mixin multiLineEllipsis($clamp: 2){
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+
+@mixin trimParagraph() {
+  p {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+/*=============================================>>>>>
+= Layout =
+===============================================>>>>>*/
+
+@mixin grid($columns: 1fr 1fr, $gap: 0) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-gap: $gap;
+}
+
+@mixin flex($gap: 0, $alignment: normal) {
+  display: flex;
+  align-items: $alignment;
+  gap: $gap;
+}
+
+@mixin dimensions($height, $width) {
+  max-height: $height;
+  max-width: $width;
+  height: 100%;
+  width: 100%;
+}
+
+@mixin padding($number, $vertical: false, $horizontal: false) {
+  // <<< === 8pt grid === >>>>
+  $padding-amount: #{$number * 8}px;
+
+  @if ($vertical != true and $horizontal) {
+    padding: 0 $padding-amount;
+  }
+  @if ($vertical and $horizontal != true) {
+    padding: $padding-amount 0;
+  }
+  @if ($vertical and $horizontal) {
+    padding: $padding-amount;
+  }
+}
+
+@mixin hide() {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+@mixin show() {
+  opacity: 1;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  visibility: visible;
+}
+
+
+
+@mixin wysiwyg() {
+  //HEADINGS
+  h1,h1,h3,h4,h5,h6 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    line-height: 1.2em;
+  }
+  h1 {
+    font-size: 48px;
+  }
+  h2 {
+    font-size: 42px;
+  }
+  h3 {
+    font-size: 36px;
+  }
+  h4 {
+    font-size: 30px;
+  }
+  h5 {
+    font-size: 24px;
+  }
+  h6 {
+    font-size: 20px;
+  }
+  // EMBED
+  iframe {
+    width: 100%;
+  }
+  // PARA +
+  p, ul, ol, a, span {
+    font-size: 16px;
+    line-height: 1.2em;
+  }
+  a {
+    text-decoration: none;
+    text-decoration-color: $primary;
+    color: $primary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  // FONT STYLE
+  strong {
+    font-weight: $font-weight-bold;
+  }
+  em {
+    font-style: italic;
+  }
+  pre {
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+  }
+  // LISTS
+  ul {
+    margin: 25px 0;
+    li {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+  }
+  ol {
+    margin: 25px 0;
+    li {
+      margin-left: 20px;
+      margin-bottom: 15px;
+      list-style-type: decimal;
+    }
+  }
+}
+
+/*=============================================>>>>>
+= Position =
+===============================================>>>>>*/
+
+@mixin vertical-align($position: absolute) {
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin horizontal-align($position: absolute) {
+  position: $position;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin center-align($position: absolute) {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
